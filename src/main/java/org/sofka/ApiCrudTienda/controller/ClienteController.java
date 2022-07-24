@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
@@ -27,7 +26,7 @@ public class ClienteController<Cliente> {
 	 */
 	@GetMapping("/")
 	public List<Cliente> getClientes() {
-		return clienteService.getClients();
+		return (List<Cliente>) clienteService.getClients();
 	}
 
 	/**
@@ -37,7 +36,7 @@ public class ClienteController<Cliente> {
 	 */
 	@GetMapping("/{id}")
 	public Cliente getCliente(@PathVariable(name = "id") Integer id) {
-		return clienteService.getClient(id);
+		return (Cliente) clienteService.getClient(id);
 	}
 
 	/**

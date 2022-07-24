@@ -30,10 +30,12 @@ public class Cliente {
 	@Column(name="cli_telefono")
 	private String telefono;
 
-	@Column(name="cli_correo")
+	@Column(name="cli_correo", unique = true, nullable = false, length = 100)
 	private String correo;
 
-	@JsonManagedReference(value = "factura-cliente")
-	@OneToMany(mappedBy = "clienta", fetch = FetchType.EAGER)
-	private List<Factura> factura = new ArrayList<>();
+//	@JsonManagedReference(value = "factura-cliente")
+//	@OneToMany(mappedBy = "clienta", fetch = FetchType.EAGER)
+//	private List<Factura> factura = new ArrayList<>();
+
+
 }

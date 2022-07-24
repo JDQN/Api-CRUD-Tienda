@@ -22,10 +22,10 @@ public class Factura {
 	private Vendedor vendedor;
 
 
-	@JsonManagedReference(value = "factura-cliente")
-	@JoinColumn(name = "cli_id_cliente",unique = true)
-	@ManyToOne(targetEntity = Cliente.class)
-	private Cliente clienta;
+//	@JsonManagedReference(value = "factura-cliente")
+//	@JoinColumn(name = "cli_id_cliente",unique = true)
+//	@ManyToOne(targetEntity = Cliente.class)
+//	private Cliente clienta;
 
 
 	@JsonManagedReference(value = "factura-detalle")

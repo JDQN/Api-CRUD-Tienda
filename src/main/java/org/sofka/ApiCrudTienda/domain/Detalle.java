@@ -23,8 +23,8 @@ public class Detalle {
 	private Factura facIdFactura;
 
 
-	/*@ManyToOne(targetEntity = Producto.class, fetch = FetchType.EAGER)*/
-	@OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Producto.class, fetch = FetchType.EAGER)
+	/*@OneToMany(targetEntity = Producto.class, fetch = FetchType.EAGER)*/
 	@JsonManagedReference(value = "detalle-producto")
 	@JoinColumn(name = "prod_id_producto", nullable = false)
 	private Producto producto;
