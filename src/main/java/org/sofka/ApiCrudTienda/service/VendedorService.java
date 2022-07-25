@@ -1,18 +1,23 @@
 package org.sofka.ApiCrudTienda.service;
 
 import org.sofka.ApiCrudTienda.domain.Vendedor;
+import org.sofka.ApiCrudTienda.repository.IVendedorRepository;
 import org.sofka.ApiCrudTienda.service.services.ICrud;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VendedorService  implements ICrud<Vendedor> {
 
 	@Autowired
-	VendedorRepository vendedorRepository;
+	IVendedorRepository vendedorRepository;
+
 
 	@Override
 	public Vendedor create(Vendedor vendedor) {
 		return vendedorRepository.save(vendedor);
 	}
+
 
 	@Override
 	public Vendedor findById(Integer id) {
@@ -21,26 +26,24 @@ public class VendedorService  implements ICrud<Vendedor> {
 
 
 	@Override
-	public Vendedor update(Vendedor vendedor, Integer id) {
-
+	public Vendedor update(Vendedor vendedorNuevo, Integer id) {
 		var vendedorAntiguo = vendedorRepository.findById(id).orElse(null);
 
-		if(vendedorAntiguo != null){
-			if(vendedorNuevo.getNombre() != null){
-				vendedorAntiguo.setNombre(vendedorNuevo.getNombre());
+		if (vendedorAntiguo != null) {
+			if (vendedorNuevo.getVenNombre() != null) {
+				vendedorAntiguo.setVenNombre(vendedorNuevo.getVenNombre());
 			}
-			if(vendedorNuevo.getCortreo() != null){
-				vendedorAntiguo.setCortreo(vendedorNuevo.getCortreo());
+			if (vendedorNuevo.getVenCorreo() != null) {
+				vendedorAntiguo.setVenCorreo(vendedorNuevo.getVenCorreo());
 			}
-			return vendedorRepository.save(vendedorAntiguo);
+			vendedorRepository.save(vendedorAntiguo);
 		}
-		return null;
+		return vendedorAntiguo;
 	}
 
 
 	@Override
-	public Vendedor delete(Integer id) {
-
-		return null;
+	public void delete(Integer id) {
+		vendedorRepository.deleteById(id);
 	}
 }

@@ -6,9 +6,8 @@ public interface ICrud<T> {
 
 	T findById(Integer id);
 
-	T update(T t);
+	T update(T t, Integer id);
 
-	T delete(Integer id);
-
+	void delete(Integer id);
 
 }

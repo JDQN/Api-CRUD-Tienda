@@ -1,10 +1,14 @@
 package org.sofka.ApiCrudTienda.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +34,5 @@ public class Vendedor {
 	@OneToMany(mappedBy = "vendedor", fetch = FetchType.EAGER)
 	@JsonBackReference(value = "factura-vendedor")
 	private List<Factura> facturas = new ArrayList<>();
-
-
-
 
 }

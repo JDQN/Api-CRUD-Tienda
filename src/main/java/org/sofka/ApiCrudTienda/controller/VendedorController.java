@@ -1,5 +1,6 @@
 package org.sofka.ApiCrudTienda.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.sofka.ApiCrudTienda.domain.Vendedor;
 import org.sofka.ApiCrudTienda.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/vendedor")
+@Slf4j
 public class VendedorController {
 
 	@Autowired
@@ -30,7 +32,8 @@ public class VendedorController {
 
 
 	@DeleteMapping("/api/v1/{id}")
-	public Vendedor delete(@PathVariable("id") Integer id) {
-		return vendedorService.delete(id);
+	public void delete(@PathVariable("id") Integer id,  @RequestParam("nombre") String nombre) {
+		log.error("Nombre {}", nombre);
+		vendedorService.delete(id);
 	}
 }
