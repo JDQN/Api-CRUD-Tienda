@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/factura")
+@RequestMapping("/api/v1/factura")
 public class FacturaController {
 
 	@Autowired
 	FacturaService facturaService;
 
-	@GetMapping("/{id}")
+	@GetMapping("/api/v1/{id}")
 	public Factura findById(@PathVariable(name = "id") Integer id) {
 		return facturaService.findById(id);
 	}

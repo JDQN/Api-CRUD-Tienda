@@ -34,7 +34,7 @@ public class ClienteController<Cliente> {
 	 * @param id el id del cliente
 	 * @return el clienteService
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/api/v1/{id}")
 	public Cliente getCliente(@PathVariable(name = "id") Integer id) {
 		return (Cliente) clienteService.getClient(id);
 	}
@@ -46,7 +46,7 @@ public class ClienteController<Cliente> {
 	 * @param nombre el nombre del cliente
 	 * @return el clienteService
 	 */
-	@GetMapping("/{correo}/{nombre}")
+	@GetMapping("/api/v1/{correo}/{nombre}")
 	public void getClienteByCorreo(@PathVariable(value="correo") String correo,
 																 @PathVariable(value="nombre") String nombre){
 		System.out.println("Correo:" +correo+ "Nombre:" +nombre);
