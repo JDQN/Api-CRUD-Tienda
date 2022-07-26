@@ -24,5 +24,30 @@ public class ClienteService {
 	public List<Cliente> findByNombre(String nombre) {
 		return clienteRepository.findByNombre(nombre);
 	}
+
+	public Cliente updateCliente(Cliente clienteNuevo, Integer id) {
+
+		var clienteAntiguo = clienteRepository.findById(id).orElse(null);
+
+		if(clienteAntiguo != null) {
+
+			if(clienteNuevo.getNombre() != null) {
+				clienteAntiguo.setNombre(clienteNuevo.getNombre());
+			}
+			if(clienteNuevo.getTelefono() != null) {
+				clienteAntiguo.setTelefono(clienteNuevo.getTelefono());
+			}
+			if(clienteNuevo.getCorreo() != null) {
+				clienteAntiguo.setCorreo(clienteNuevo.getCorreo());
+			}
+			clienteRepository.save(clienteAntiguo);
+		}
+		return clienteAntiguo;
+	}
+
+	public void deleteCliente(Integer id) {
+		clienteRepository.deleteById(id);
+	}
+
 }
 
