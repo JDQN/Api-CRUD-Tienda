@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-public class RespuestasPersonalizadas {
-
+public class CustomResponse {
 	private Boolean error;
 
 	private Integer status;
@@ -17,7 +16,8 @@ public class RespuestasPersonalizadas {
 
 	private Object data;
 
-	public static RespuestasPersonalizadas fillFields(Boolean error, String message, Object data, HttpStatus status) {
+
+	public CustomResponse fillFields(Boolean error, String message, Object data, HttpStatus status) {
 		this.error = error;
 		this.message = message;
 		this.data = data;

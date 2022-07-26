@@ -1,7 +1,7 @@
 package org.sofka.ApiCrudTienda.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.sofka.ApiCrudTienda.controller.Utils.RespuestasPersonalizadas;
+import org.sofka.ApiCrudTienda.controller.Utils.CustomResponse;
 import org.sofka.ApiCrudTienda.domain.Cliente;
 import org.sofka.ApiCrudTienda.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,8 @@ public class ClienteController {
 	@Autowired
 	ClienteService clienteService;
 	@Autowired
-	RespuestasPersonalizadas respuestasPersonalizadas;
+	CustomResponse customResponse;
+
 
 	/**
 	 * PostMapping es utilizado para crear un nuevo cliente.
@@ -46,22 +47,19 @@ public class ClienteController {
 		return new ResponseEntity<>(clientes, HttpStatus.NOT_FOUND);
 	}
 
-	@GetMapping("/{nombre}")
-	public ResponseEntity<RespuestasPersonalizadas> findByNombre(@PathVariable("nombre") String nombre) {
-		List<Cliente> clientesEncontrados = clienteService.findByNombre(nombre);
 
+
+	@GetMapping("/{nombre}")
+
+	public ResponseEntity<CustomResponse> findByNombre(@PathVariable("nombre") String nombre) {
+		List<Cliente> clientesEncontrados = clienteService.findByNombre(nombre);
 		if (clientesEncontrados.isEmpty()) {
 			var message = String.format("No se encontro clientes con el nombre %s", nombre);
-			var respuesta = RespuestasPersonalizadas.fillFields(true, message, new String[]{},
-					HttpStatus.NOT_FOUND);
-
+			var respuesta = customResponse.fillFields(true, message, new String[]{}, HttpStatus.NOT_FOUND);
 			return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
 		}
-
-		var message = String.format("Se encontro %d cliente(s) con el nombre %s",
-				clientesEncontrados.size(), nombre);
-
-		return ResponseEntity.ok(
-					RespuestasPersonalizadas.fillFields(false, message, clientesEncontrados, HttpStatus.OK));
+		var message = String.format("Se encontro %d cliente(s) con el nombre %s", clientesEncontrados.size(), nombre);
+		return ResponseEntity.ok(customResponse.fillFields(false, message, clientesEncontrados, HttpStatus.OK));
 	}
+
 }
