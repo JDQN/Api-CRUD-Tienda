@@ -11,9 +11,9 @@ import java.util.List;
 public class ClienteService {
 
 	@Autowired
-	IClienteRepository clienteRepository;
+	private IClienteRepository clienteRepository;
 
-	public List<Cliente> getClients() {
+	public List<Cliente> getAllClients() {
 		return clienteRepository.findAll();
 	}
 
@@ -21,8 +21,13 @@ public class ClienteService {
 		return clienteRepository.findById(id).orElse(null);
 	}
 
-	/*public void calcularIva(Cliente cliente){
-		cliente.setIva(cliente.getIva()*0.16);
-	}*/
+
+	public Cliente createCliente(Cliente cliente) {
+		return clienteRepository.save(cliente);
+	}
+
+	public List<Cliente> findByNombre(String nombre) {
+		return clienteRepository.findByNombre(nombre);
+	}
 }
 

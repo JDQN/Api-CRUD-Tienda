@@ -2,7 +2,7 @@ package org.sofka.ApiCrudTienda.service;
 
 import org.sofka.ApiCrudTienda.domain.Vendedor;
 import org.sofka.ApiCrudTienda.repository.IVendedorRepository;
-import org.sofka.ApiCrudTienda.service.services.ICrud;
+import org.sofka.ApiCrudTienda.service.interfaces.ICrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

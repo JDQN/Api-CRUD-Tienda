@@ -1,4 +1,4 @@
-package org.sofka.ApiCrudTienda.service.services;
+package org.sofka.ApiCrudTienda.service.interfaces;
 
 public interface ICrud<T> {
 

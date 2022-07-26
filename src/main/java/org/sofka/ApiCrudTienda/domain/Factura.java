@@ -22,13 +22,11 @@ public class Factura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name = "ven_id_vendedor", nullable = false)
-	private Integer clienteId;
-
-
 	@Column(name = "ven_id_cliente", nullable = false)
 	private Integer vendedorId;
 
+	@Column(name = "cli_id_vendedor", nullable = false)
+	private Integer clienteId;
 
 	@JsonManagedReference(value = "factura-vendedor")
 	@JoinColumn(name = "ven_id_vendedor")

@@ -1,9 +1,12 @@
 package org.sofka.ApiCrudTienda.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.sofka.ApiCrudTienda.service.ClienteService;
+import org.sofka.ApiCrudTienda.controller.Utils.RespuestasPersonalizadas;
 import org.sofka.ApiCrudTienda.domain.Cliente;
+import org.sofka.ApiCrudTienda.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,54 +18,50 @@ import java.util.List;
 @RestController
 @RequestMapping("/cliente")
 @Slf4j
-public class ClienteController<Cliente> {
+public class ClienteController {
 
 	@Autowired
 	ClienteService clienteService;
+	@Autowired
+	RespuestasPersonalizadas respuestasPersonalizadas;
 
 	/**
-	 * El metodo getClients() retorna una lista de clientes
-	 * @return el clienteService
+	 * PostMapping es utilizado para crear un nuevo cliente.
+	 * @param cliente
+	 * @return ResponseEntity<Cliente> que es una respuesta de tipo cliente.
 	 */
-	@GetMapping("/")
-	public List<Cliente> getClientes() {
-		return (List<Cliente>) clienteService.getClients();
-	}
-
-	/**
-	 * El metodo getCliente(@PathVariable(name = "id") Integer id) retorna un cliente
-	 * @param id el id del cliente
-	 * @return el clienteService
-	 */
-	@GetMapping("/api/v1/{id}")
-	public Cliente getCliente(@PathVariable(name = "id") Integer id) {
-		return (Cliente) clienteService.getClient(id);
-	}
-
-	/**
-	 * El metodo getClientByCorreo(@PathVariable(value = "correo") String correo,
-	 * @PathVariable(value = "nombre") String nombre) retorna un cliente
-	 * @param correo el correo del cliente
-	 * @param nombre el nombre del cliente
-	 * @return el clienteService
-	 */
-	@GetMapping("/api/v1/{correo}/{nombre}")
-	public void getClienteByCorreo(@PathVariable(value="correo") String correo,
-																 @PathVariable(value="nombre") String nombre){
-		System.out.println("Correo:" +correo+ "Nombre:" +nombre);
-		//        clientService.getClientByCorreo(nombre);
-		//        ?key=value
-		//        &key=value
+	@PostMapping("/new")
+	public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
+		return ResponseEntity.ok(clienteService.createCliente(cliente));
 	}
 
 
 	/**
-	 * El metodo newClient(@RequestBody String cliente) crea un nuevo cliente
-	 * @param cliente el cliente a crear
-	 * @return el clienteService
+	 * GetMapping es utilizado para obtener todos los clientes.
+	 * @return ResponseEntity<List<Cliente>> que es una respuesta de tipo lista de clientes.
 	 */
-	@PostMapping(value="/new", consumes="application/json")
-	public void newCliente(@RequestBody String cliente){
-		log.info("Nuevo cliente:" +cliente);
+	@GetMapping("/all")
+	public ResponseEntity<List<Cliente>> getAllClients() {
+		var clientes = clienteService.getAllClients();
+		return new ResponseEntity<>(clientes, HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping("/{nombre}")
+	public ResponseEntity<RespuestasPersonalizadas> findByNombre(@PathVariable("nombre") String nombre) {
+		List<Cliente> clientesEncontrados = clienteService.findByNombre(nombre);
+
+		if (clientesEncontrados.isEmpty()) {
+			var message = String.format("No se encontro clientes con el nombre %s", nombre);
+			var respuesta = RespuestasPersonalizadas.fillFields(true, message, new String[]{},
+					HttpStatus.NOT_FOUND);
+
+			return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
+		}
+
+		var message = String.format("Se encontro %d cliente(s) con el nombre %s",
+				clientesEncontrados.size(), nombre);
+
+		return ResponseEntity.ok(
+					RespuestasPersonalizadas.fillFields(false, message, clientesEncontrados, HttpStatus.OK));
 	}
 }
