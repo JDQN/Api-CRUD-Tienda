@@ -17,11 +17,6 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 
-	public Cliente getClient(Integer id){
-		return clienteRepository.findById(id).orElse(null);
-	}
-
-
 	public Cliente createCliente(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}

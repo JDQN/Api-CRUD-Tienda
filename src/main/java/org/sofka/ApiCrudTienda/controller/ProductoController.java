@@ -20,7 +20,7 @@ public class ProductoController {
 	 * @param producto
 	 * @return
 	 */
-	@GetMapping("/api/v1/producto/{id}")
+	@GetMapping("/{id}")
 	public Producto findById(@PathVariable("id") Integer id){
 		return productoService.findById(id);
 	}
@@ -31,7 +31,7 @@ public class ProductoController {
 	 * @param producto
 	 * @return
 	 */
-	@PostMapping("/api/v1/producto")
+	@PostMapping("")
 	public Producto create(@RequestBody Producto producto){
 		return productoService.create(producto);
 	}
@@ -43,7 +43,7 @@ public class ProductoController {
 	 * @param id
 	 * @return
 	 */
-	@PutMapping("/api/v1/producto/{id}")
+	@PutMapping("/{id}")
 	public Producto update(@RequestBody Producto producto, @PathVariable("id") Integer id){
 		return productoService.update(producto, id);
 	}
@@ -54,7 +54,7 @@ public class ProductoController {
 	 * @param id
 	 * @param nombre
 	 */
-	@DeleteMapping("/api/v1/producto/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id, @RequestParam("nombre") String nombre){
 		log.error("Nombre {}", nombre);
 		productoService.delete(id);

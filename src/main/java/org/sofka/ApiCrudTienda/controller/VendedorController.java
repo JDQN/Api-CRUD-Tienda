@@ -14,24 +14,24 @@ public class VendedorController {
 	@Autowired
 	VendedorService vendedorService;
 
-	@GetMapping("/api/v1/{id}")
+	@GetMapping("/{id}")
 	public Vendedor findById(@PathVariable("id") Integer id) {
 		return vendedorService.findById(id);
 	}
 
-	@PostMapping ("/api/v1")
+	@PostMapping ("")
 	public Vendedor create(@RequestBody Vendedor vendedor) {
 		return vendedorService.create(vendedor);
 	}
 
 
-	@PutMapping("/api/v1/{id}")
+	@PutMapping("/{id}")
 	public Vendedor update(@RequestBody Vendedor factura, @PathVariable("id") Integer id) {
 		return vendedorService.update(factura, id);
 	}
 
 
-	@DeleteMapping("/api/v1/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id,  @RequestParam("nombre") String nombre) {
 		log.error("Nombre {}", nombre);
 		vendedorService.delete(id);
